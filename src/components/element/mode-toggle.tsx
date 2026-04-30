@@ -19,7 +19,7 @@ export function ModeSwitcher({
 }: React.ComponentProps<"span"> & {
   className?: string
 }) {
-  const [layout, setLayout] = useState(1)
+  const [layout, setLayout] = useState(2)
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -142,7 +142,7 @@ export function ModeSwitcher({
           {/* <MoonStar className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" /> */}
           {/*<Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />*/}
           {getCurrentIcon()}
-          <span className="sr-only">Toggle theme (Light/Dark/System)</span>
+          <span className="sr-only">Toggle theme</span>
           {/* <span className="sr-only">Toggle theme</span> */}
         </Button>
       ) : (
