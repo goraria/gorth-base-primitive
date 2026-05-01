@@ -51,8 +51,14 @@ export function AppSidebar({ data, ...props }: AppSidebarProps) {
                       <img src={data.brand.logo} className="size-9"  alt={data.brand.name}/>
                     </div>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-medium">{data.brand.name}</span>
-                      {data.brand.plan && <span className="truncate text-xs">{data.brand.plan}</span>}
+                      {data.brand.plan ? (
+                        <>
+                          <span className="truncate font-medium">{data.brand.name}</span>
+                          <span className="truncate text-xs">{data.brand.plan}</span>
+                        </>
+                      ) : (
+                        <span className="truncate font-medium text-xl">{data.brand.name}</span>
+                      )}
                     </div>
                   </Link>
                 ) : (
