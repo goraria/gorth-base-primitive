@@ -42,6 +42,7 @@ export interface SidebarProps {
   navSecondary: NavMainItem[]
   projects: ProjectProps[]
   teams?: TeamProps[]
+  brand?: BrandProps
 }
 
 export interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
@@ -73,6 +74,12 @@ export interface TeamProps {
   name: string
   logo: React.ElementType
   plan: string
+}
+
+export interface BrandProps {
+  name: string
+  logo: string | undefined
+  plan: string | undefined
 }
 
 export interface TeamSwitcherProps {
