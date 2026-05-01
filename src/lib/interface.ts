@@ -79,7 +79,7 @@ export interface TeamProps {
 export interface BrandProps {
   name: string
   logo: string | undefined
-  plan: string | undefined
+  plan?: string | undefined
 }
 
 export interface TeamSwitcherProps {

@@ -48,7 +48,7 @@ export function AppSidebar({ data, ...props }: AppSidebarProps) {
                 {data.brand && data.brand.logo ? (
                   <Link href="/">
                     <div className="flex aspect-square size-9 items-center justify-center rounded-md text-sidebar-primary-foreground">
-                      <img src={data.brand.logo} className="size-9"  alt={data.brand.name}/>
+                      <img src={data.brand.logo} className="size-9" alt={data.brand.name}/>
                     </div>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       {data.brand.plan ? (
