@@ -80,12 +80,13 @@
       "types": "./dist/components/dashboard/*.d.ts",
       "import": "./dist/components/dashboard/*.js"
     },
-    "./assets/*": "./dist/assets/*",
+    "./assets/*": "./src/assets/*",
     "./globals.css": "./dist/globals.css",
     "./postcss.config": "./postcss.config.mjs"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/assets"
   ],
   "scripts": {
     "build": "tsup && pnpm exec tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css --minify",

@@ -18,6 +18,9 @@ export default defineConfig({
     "src/hooks/*.tsx",
     "src/lib/*.ts",
     "src/cores/*.ts",
+    "src/assets/*.png",
+    "src/assets/*.jpg",
+    "src/assets/*.jpeg",
   ],
   loader: {
     '.png': 'copy',
