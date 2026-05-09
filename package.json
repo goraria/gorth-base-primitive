@@ -89,7 +89,7 @@
   ],
   "scripts": {
     "build": "tsup && pnpm exec tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css --minify",
-    "prepare": "pnpm build",
+    "prepack": "pnpm build",
     "er": "tsup && node ./scripts/copy-assets.mjs && pnpm exec tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css --minify",
     "dev": "tsup --watch",
     "lint": "eslint",
@@ -129,7 +129,7 @@
     "react-resizable-panels": "^4.11.0",
     "react-svg-credit-card-payment-icons": "^5.1.2",
     "react-use-measure": "^2.1.7",
-    "recharts": "3.8.1",
+    "recharts": "3.8.0",
     "shadcn": "^4.7.0",
     "shiki": "^4.0.2",
     "simplex-noise": "^4.0.3",
