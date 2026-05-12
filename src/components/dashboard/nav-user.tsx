@@ -7,7 +7,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/components/ui/avatar"
+} from "@/components/custom/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,6 +32,8 @@ import {
   LogOut,
   Sparkles,
   Bolt,
+  LogIn,
+  KeySquare,
   LucideIcon,
 } from "lucide-react"
 
@@ -49,7 +51,7 @@ export function NavUserX({ user }: { user: UserProps }) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-9 w-9 rounded-md">
+              <Avatar className="">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-md">CN</AvatarFallback>
               </Avatar>
@@ -68,9 +70,9 @@ export function NavUserX({ user }: { user: UserProps }) {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
+                <Avatar className="">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -130,42 +132,62 @@ export function NavUserDropdown({ user }: { user?: any | null }): JSX.Element {
 
   return (
     <>
-      <DropdownMenuLabel className="p-0 font-normal">
-        <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-          <NavAvatar user={user} />
-          <NavName user={user} />
-        </div>
-      </DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuGroup>
-        <NavDropdownItem
-          icon={BadgeCheck}
-          title="Tài khoản"
-          link="/setting/information"
-        />
-        <NavDropdownItem
-          icon={CreditCard}
-          title="Thanh toán"
-          link="/setting/payment"
-        />
-        <NavDropdownItem
-          icon={Bolt}
-          title="Cài đặt"
-          link="/setting"
-        />
-      </DropdownMenuGroup>
-      <DropdownMenuSeparator />
-      <NavDropdownItem
-        icon={LogOut}
-        title="Đăng xuất"
-        action={handleLogout}
-      />
-      {/* <DropdownMenuItem className="h-9 gap-3 p-2.5" onClick={handleLogout}>
-        disabled={isLoggingOut}
-        <LogOut className="h-4 w-4" />
-        {isLoggingOut ? 'Logging out...' : 'Log out'}
-        Đăng xuất
-      </DropdownMenuItem> */}
+      {user ? (
+        <>
+          <DropdownMenuLabel className="p-0 font-normal">
+            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+              <NavAvatar user={user} />
+              <NavName user={user} />
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <NavDropdownItem
+              icon={BadgeCheck}
+              title="Tài khoản"
+              link="/setting/information"
+            />
+            <NavDropdownItem
+              icon={CreditCard}
+              title="Thanh toán"
+              link="/setting/payment"
+            />
+            <NavDropdownItem
+              icon={Bolt}
+              title="Cài đặt"
+              link="/setting"
+            />
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <NavDropdownItem
+            icon={LogOut}
+            title="Đăng xuất"
+            action={handleLogout}
+          />
+        </>
+      ) : (
+        <>
+          <DropdownMenuLabel className="p-0 font-normal">
+            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+              <NavAvatar user={user} />
+              <NavName user={user} />
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <NavDropdownItem
+              icon={LogIn}
+              title="Đăng nhập"
+              link="/sign-in"
+            />
+            <NavDropdownItem
+              icon={KeySquare}
+              title="Đăng ký"
+              link="/sign-up"
+            />
+          </DropdownMenuGroup>
+        </>
+      )}
     </>
   );
 }
@@ -188,7 +210,7 @@ export function NavUser({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-9 p-0 cursor-pointer"
+                className="p-0 cursor-pointer"
               >
                 <NavAvatar user={user} />
               </Button>
@@ -221,7 +243,7 @@ export function NavUser({
                   ) : size === "icon" ? (
                     <SidebarMenuButton
                       size="default"
-                      className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground h-9 md:p-0"
+                      className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground md:p-0"
                     >
                       <NavAvatar user={user} />
                       <NavName user={user} />
@@ -230,7 +252,7 @@ export function NavUser({
                   ) : (
                     <>
                       <SidebarMenuButton
-                        className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground h-9 md:p-0"
+                        className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground md:p-0"
                       >
                         <NavAvatar user={user} />
                         <NavName user={user} />
@@ -262,14 +284,14 @@ export function NavUser({
 export function NavAvatar({ user }: { user?: any | null }) {
   return (
     <>
-      <Avatar className="h-9 w-9 rounded-md">
+      <Avatar className="">
         {user ? (
           <>
             <AvatarImage
               src={user?.imageUrl ?? user?.avatarUrl ?? undefined}
               alt={user?.fullName ?? `${user?.firstName ?? ''} ${user?.lastName ?? ''}`}
             />
-            <AvatarFallback className="bg-professional-main/24 rounded-md" suppressHydrationWarning>
+            <AvatarFallback className="bg-professional-main/24" suppressHydrationWarning>
               {(user?.firstName?.charAt(0) ?? 'U').toUpperCase()}
               {(user?.lastName?.charAt(0) ?? 'A').toUpperCase()}
             </AvatarFallback>
@@ -281,7 +303,7 @@ export function NavAvatar({ user }: { user?: any | null }) {
         ) : (
           <>
             {/* <AvatarImage src={user?.user_metadata?.avatar_url ?? user?.user_metadata?.picture ?? undefined} alt={`${user?.user_metadata?.name}`} /> */}
-            <AvatarFallback className="rounded-md">VA</AvatarFallback>
+            <AvatarFallback className="">VA</AvatarFallback>
           </>
         )}
       </Avatar>
