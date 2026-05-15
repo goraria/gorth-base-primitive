@@ -46,6 +46,8 @@ export interface SidebarProps {
   user: UserProps
   navMain: NavMainItem[]
   navSecondary: NavMainItem[]
+  navDropdown: NavMainItem[]
+  navSignal: NavMainItem[]
   projects: ProjectProps[]
   teams?: TeamProps[]
   brand?: BrandProps
@@ -53,7 +55,6 @@ export interface SidebarProps {
 
 export interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   data: SidebarProps,
-  dropdown?: NavDropdown
 }
 
 export interface AppSidebarPropsX extends ComponentProps<typeof Sidebar> {
