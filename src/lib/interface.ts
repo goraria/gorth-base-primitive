@@ -1,6 +1,11 @@
 import React, { ComponentProps, ComponentType, ElementType } from "react";
 import { Sidebar } from "@/components/ui/sidebar";
 import { LucideIcon } from "lucide-react";
+import {
+  Table as TanStackTable,
+  Column,
+  ColumnDef
+} from "@tanstack/react-table";
 
 // ============================================================================
 // SIDEBAR INTERFACES
@@ -109,4 +114,61 @@ export interface StatsBoxProps {
 export interface BadgeIconProps {
   color?: string
   icon: LucideIcon
+}
+
+
+// ============================================================================
+// DATATABLES INTERFACES
+// ============================================================================
+
+export interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+  search: {
+    column: string
+    placeholder: string
+  }
+  filter?: {
+    column: string
+    title?: string
+    options: {
+      label: string
+      value: string | number | boolean
+      icon?: ComponentType<{
+        className?: string | undefined;
+      }> | undefined
+    }[]
+  }[]
+  max?: string
+  onReload?: () => void
+  onDownload?: () => void
+  onCreate?: () => void
+  onUpdate?: (category: any) => void
+  onChange?: () => void
+}
+
+export interface DataTableColumnHeaderProps<TData, TValue>
+  extends React.HTMLAttributes<HTMLDivElement> {
+  column: Column<TData, TValue>
+  title: string
+}
+
+export interface DataTableSortButtonProps<TData, TValue>
+  extends React.HTMLAttributes<HTMLDivElement> {
+  column: Column<TData, TValue>
+  title: string
+}
+
+export interface DataTablePaginationProps<TData> {
+  table: TanStackTable<TData>
+}
+
+export interface DataTableFacetedFilterProps<TData, TValue> {
+  column?: Column<TData, TValue>
+  title?: string
+  options: {
+    label: string
+    value: string | number | boolean
+    icon?: React.ComponentType<{ className?: string }>
+  }[]
 }
