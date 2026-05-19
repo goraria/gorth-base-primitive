@@ -36,6 +36,30 @@
       "types": "./dist/cores/sonner.d.ts",
       "import": "./dist/cores/sonner.js"
     },
+    "./cores/swr": {
+      "types": "./dist/cores/swr.d.ts",
+      "import": "./dist/cores/swr.js"
+    },
+    "./cores/tanstack-query": {
+      "types": "./dist/cores/tanstack-query.d.ts",
+      "import": "./dist/cores/tanstack-query.js"
+    },
+    "./cores/tanstack-form": {
+      "types": "./dist/cores/tanstack-form.d.ts",
+      "import": "./dist/cores/tanstack-form.js"
+    },
+    "./cores/tanstack-table": {
+      "types": "./dist/cores/tanstack-table.d.ts",
+      "import": "./dist/cores/tanstack-table.js"
+    },
+    "./cores/tanstack-ranger": {
+      "types": "./dist/cores/tanstack-ranger.d.ts",
+      "import": "./dist/cores/tanstack-ranger.js"
+    },
+    "./cores/tanstack-virtual": {
+      "types": "./dist/cores/tanstack-virtual.d.ts",
+      "import": "./dist/cores/tanstack-virtual.js"
+    },
     "./cores/radix": {
       "types": "./dist/cores/radix.d.ts",
       "import": "./dist/cores/radix.js"
