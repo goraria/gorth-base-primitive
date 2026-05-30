@@ -37,7 +37,7 @@ import {
   LucideIcon,
 } from "lucide-react"
 
-import { AppSidebarUserProps, NavDropdown, NavMainItem, UserProps } from "@/lib/interface";
+import { AppSidebarUserProps, AuthSidebarProps, NavDropdown, NavMainItem, UserProps } from "@/lib/interface";
 
 export function NavUserX({ user }: { user: UserProps }) {
   const { isMobile } = useSidebar()
@@ -117,11 +117,11 @@ export function NavUserX({ user }: { user: UserProps }) {
 export function NavUserDropdown({
   user,
   nav,
-  logout
+  auth
 }: {
   user?: any | null;
-  nav?: NavDropdown;
-  logout?: () => void
+  nav: NavDropdown;
+  auth: AuthSidebarProps
 }): JSX.Element {
   const router = useRouter();
 
@@ -137,7 +137,14 @@ export function NavUserDropdown({
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            {nav && nav.main.map((item, index) => (
+            {auth.authenticated ? nav.main.map((item, index) => (
+              <NavDropdownItem
+                key={index}
+                icon={item.icon}
+                title={item.title}
+                link={item.url}
+              />
+            )) : nav.secondary.map((item, index) => (
               <NavDropdownItem
                 key={index}
                 icon={item.icon}
@@ -150,7 +157,7 @@ export function NavUserDropdown({
           <NavDropdownItem
             icon={LogOut}
             title="Đăng xuất"
-            action={logout ? logout : () => {}}
+            action={auth.logout}
           />
         </>
       ) : (
@@ -181,6 +188,7 @@ export function NavUserDropdown({
 export function NavUser({
   user,
   nav,
+  auth,
   type,
   size = "icon",
   side = "bottom",
@@ -208,7 +216,7 @@ export function NavUser({
               align={align}
               sideOffset={4}
             >
-              <NavUserDropdown user={user} nav={nav} />
+              <NavUserDropdown user={user} nav={nav} auth={auth} />
             </DropdownMenuContent>
           </DropdownMenu>
         </>
@@ -255,7 +263,7 @@ export function NavUser({
                   align={align}
                   sideOffset={4}
                 >
-                  <NavUserDropdown user={user} nav={nav} />
+                  <NavUserDropdown user={user} nav={nav} auth={auth} />
                 </DropdownMenuContent>
               </DropdownMenu>
             </SidebarMenuItem>

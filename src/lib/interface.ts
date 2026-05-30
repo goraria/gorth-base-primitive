@@ -40,7 +40,8 @@ export interface UserProps {
 
 export interface AppSidebarUserProps {
   user?: any | null;
-  nav?: NavDropdown;
+  nav: NavDropdown;
+  auth: AuthSidebarProps;
   type?: "sidebar" | "navbar";
   size?: "icon" | "sm" | "md" | "lg";
   side?: "top" | "bottom" | "left" | "right";
@@ -60,6 +61,17 @@ export interface SidebarProps {
 
 export interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   data: SidebarProps,
+  auth: AuthSidebarProps,
+}
+
+export interface AuthSidebarProps {
+  // account: AuthUser | null
+  loading: boolean
+  authenticated: boolean
+  // refresh: () => Promise<AuthUser | null>
+  login: (returnTo?: string) => void
+  register: (returnTo?: string) => void
+  logout: (returnTo?: string) => Promise<void>
 }
 
 export interface AppSidebarPropsX extends ComponentProps<typeof Sidebar> {

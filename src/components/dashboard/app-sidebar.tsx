@@ -23,7 +23,7 @@ import { LucideIcon } from "lucide-react"
 import { TeamSwitcher } from "@/components/dashboard/team-switcher"
 import { AppSidebarProps } from "@/lib/interface";
 
-export function AppSidebar({ data, ...props }: AppSidebarProps) {
+export function AppSidebar({ data, auth, ...props }: AppSidebarProps) {
   return (
     <Sidebar collapsible="icon" {...props}>
     {/*<Sidebar variant="inset" {...props}>*/}
@@ -81,6 +81,7 @@ export function AppSidebar({ data, ...props }: AppSidebarProps) {
           type="sidebar"
           side="right"
           size="lg"
+          auth={auth}
           nav={{
             main: data.navDropdown,
             secondary: data.navSignal
