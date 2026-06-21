@@ -68,6 +68,10 @@
       "types": "./dist/lib/*.d.ts",
       "import": "./dist/lib/*.js"
     },
+    "./modules/*": {
+      "types": "./dist/modules/*.d.ts",
+      "import": "./dist/modules/*.js"
+    },
     "./default/*": {
       "types": "./dist/components/ui/*.d.ts",
       "import": "./dist/components/ui/*.js"
