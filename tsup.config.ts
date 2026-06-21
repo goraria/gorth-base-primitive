@@ -18,7 +18,7 @@ export default defineConfig({
     "src/hooks/*.tsx",
     "src/lib/*.ts",
     "src/cores/*.ts",
-    "src/modules/*/*.ts",
+    "src/modules/*.ts",
     "src/assets/*.png",
     "src/assets/*.jpg",
     "src/assets/*.jpeg",
