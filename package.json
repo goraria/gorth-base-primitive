@@ -114,6 +114,7 @@
     "shadcn:io:hooks": "bash ./scripts/shadcn-io-hooks.sh"
   },
   "dependencies": {
+    "@shadcn/react": "^0.1.0",
     "@tanstack/react-form": "^1.33.0",
     "@tanstack/react-query": "^5.101.2",
     "@tanstack/react-ranger": "^0.0.5",
