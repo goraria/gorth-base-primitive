@@ -1,5 +1,5 @@
 export * from "@/components/dashboard/app-sidebar";
-// export * from "@/components/dashboard/mess-sidebar";
+export * from "@/components/dashboard/mess-sidebar";
 export * from "@/components/dashboard/nav-element";
 export * from "@/components/dashboard/nav-main";
 export * from "@/components/dashboard/nav-projects";
