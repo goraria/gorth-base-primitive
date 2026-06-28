@@ -102,7 +102,7 @@ export function MessSidebar({ data, auth, ...props }: MessSidebarProps) {
                         setOpen(true)
                       }}
                       isActive={activeItem?.title === item.title}
-                      className="px-2.5 md:px-2"
+                      className="px-2.5"
                     >
                       <item.icon />
                       <span>{item.title}</span>
@@ -143,7 +143,7 @@ export function MessSidebar({ data, auth, ...props }: MessSidebarProps) {
           <SidebarInput placeholder="Type to search..." />
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup className="px-0">
+          <SidebarGroup className="p-0">
             <SidebarGroupContent>
               {messages.map((mail) => (
                 <Link
@@ -156,7 +156,7 @@ export function MessSidebar({ data, auth, ...props }: MessSidebarProps) {
                     <span className="ml-auto text-xs">{mail.date}</span>
                   </div>
                   <span className="font-medium">{mail.subject}</span>
-                  <span className="line-clamp-2 w-[260px] text-xs whitespace-break-spaces">
+                  <span className="line-clamp-2 w-full text-xs whitespace-break-spaces">
                     {mail.teaser}
                   </span>
                 </Link>
