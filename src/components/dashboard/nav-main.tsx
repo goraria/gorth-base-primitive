@@ -28,11 +28,7 @@ import {
 } from "@/components/custom/sidebar";
 import { Badge } from "@/components/custom/badge";
 import { cn } from "@/lib/utils";
-import { NavMainItem } from "@/lib/interface";
-
-interface NavCoreProps extends React.ComponentPropsWithoutRef<typeof SidebarGroup> {
-  items: NavMainItem[];
-}
+import { NavCoreProps, NavMainItem } from "@/lib/interface";
 
 export function NavOrigin({ items, ...props }: NavCoreProps) {
   return (
@@ -105,6 +101,115 @@ export function NavOrigin({ items, ...props }: NavCoreProps) {
         {/*    </SidebarMenuItem>*/}
         {/*  </Collapsible>*/}
         {/*))}*/}
+      </SidebarMenu>
+    </SidebarGroup>
+  )
+}
+
+export function NavMaster({ items, ...props }: NavCoreProps) {
+  const { setOpen } = useSidebar();
+  const pathname = usePathname();
+
+  const isMenuActive = useCallback((item: NavMainItem) => {
+    if (item.url !== "#" && pathname === item.url) return true;
+    if (item.items) {
+      return item.items.some((sub: { url: string }) => sub.url !== "#" && pathname === sub.url);
+    }
+    return false;
+  }, [pathname]);
+  const isSubMenuActive = useCallback((item: { url: string }) => {
+    return item.url !== "#" && pathname === item.url;
+  }, [pathname]);
+
+  const getDefaultOpenIndex = useCallback(() => {
+    return items.findIndex((item: NavMainItem) => isMenuActive(item));
+  }, [items, isMenuActive]);
+  const [openIndex, setOpenIndex] = useState<number | null>(() => {
+    const idx = getDefaultOpenIndex();
+    return idx !== -1 ? idx : null;
+  });
+
+  useEffect(() => {
+    const idx = getDefaultOpenIndex();
+    setOpenIndex(idx !== -1 ? idx : null);
+  }, [getDefaultOpenIndex]);
+
+  return (
+    <SidebarGroup {...props}>
+      {/*<SidebarGroupLabel className="text-lg font-medium">Platform</SidebarGroupLabel>*/}
+      <SidebarMenu>
+        {items.map((item: NavMainItem, idx: number) => {
+          const isOpen = openIndex === idx;
+          const hasSubMenu = Array.isArray(item.items) && item.items.length > 0;
+          const Icon = item.icon
+
+          if (!hasSubMenu) {
+            return (
+              <SidebarMenuItem key={`${item.title}-${item.url}-${idx}`}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  isActive={isMenuActive(item)}
+                  asChild
+                >
+                  <Link href={item.url} onClick={() => setOpen(true)}>
+                    {Icon && <Icon />}
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          }
+
+          return (
+            <Collapsible
+              key={item.title}
+              asChild
+              open={isOpen}
+              defaultOpen={item.isActive}
+              className="group/collapsible"
+            >
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip={item.title}>
+                    {Icon && <Icon />}
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  {hasSubMenu && (
+                    <SidebarMenuSub>
+                      {item.items?.map((subItem: any) => (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={isSubMenuActive(subItem)}
+                            onClick={() => setOpen(true)}
+                          >
+                            <Link href={subItem.url}>
+                              {/*<span>{subItem.title}</span>*/}
+                              <span className="w-4 h-4 flex justify-center items-center">
+                                <span
+                                  className={cn(
+                                    "w-2 h-2 rounded-full",
+                                    isSubMenuActive(subItem)
+                                      ? "bg-professional-main"
+                                      : "bg-muted-foreground border border-background"
+                                  )}
+                                />
+                              </span>
+                              <span className="text-sm text-foreground">{subItem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          )
+        })}
       </SidebarMenu>
     </SidebarGroup>
   )

@@ -6,6 +6,7 @@ import {
   Column,
   ColumnDef
 } from "@tanstack/react-table";
+import { SidebarGroup } from "@/components/custom/sidebar";
 
 // ============================================================================
 // SIDEBAR INTERFACES
@@ -27,6 +28,15 @@ export interface NavSubItem {
 export interface NavDropdown {
   main: NavMainItem[]
   secondary: NavMainItem[]
+}
+
+export interface NavMessage {
+  name: string;
+  email: string;
+  avatar?: string;
+  subject?: string;
+  teaser?: string;
+  date: Date;
 }
 
 export interface UserProps {
@@ -59,9 +69,30 @@ export interface SidebarProps {
   brand?: BrandProps
 }
 
+export interface MessageProps {
+  user: UserProps
+  navMain: NavMainItem[]
+  // navSecondary: NavMainItem[]
+  // navDropdown: NavMainItem[]
+  // navSignal: NavMainItem[]
+  // projects: ProjectProps[]
+  // teams?: TeamProps[]
+  navMessage: NavMessage[]
+  brand?: BrandProps
+}
+
 export interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   data: SidebarProps,
   auth: AuthSidebarProps,
+}
+
+export interface MessSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  data: MessageProps,
+  auth: AuthSidebarProps,
+}
+
+export interface NavCoreProps extends React.ComponentPropsWithoutRef<typeof SidebarGroup> {
+  items: NavMainItem[];
 }
 
 export interface AuthSidebarProps {

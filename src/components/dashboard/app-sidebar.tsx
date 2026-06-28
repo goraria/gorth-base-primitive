@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { Command } from "lucide-react"
 
-import { NavMain, NavOrigin } from "@/components/dashboard/nav-main"
+import { NavMain, NavMaster, NavOrigin } from "@/components/dashboard/nav-main"
 import { NavProjects } from "@/components/dashboard/nav-projects"
 import { NavSecondary } from "@/components/dashboard/nav-secondary"
 import { NavUser } from "@/components/dashboard/nav-user"
@@ -68,7 +68,7 @@ export function AppSidebar({ data, auth, ...props }: AppSidebarProps) {
       </SidebarHeader>
       {/*<SidebarSeparator className="mx-0" />*/}
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMaster items={data.navMain} />
         <SidebarSeparator className="mx-0 -my-2" />
         <NavSecondary items={data.navSecondary} />
         <SidebarSeparator className="mx-0 -my-2" />
@@ -316,6 +316,107 @@ export function AppSidebar({ data, auth, ...props }: AppSidebarProps) {
 //         <NavUser user={user} type="sidebar" size="lg" side="right" align="end" />
 //       </SidebarFooter>
 //       <SidebarRail />
+//     </Sidebar>
+//   )
+// }
+
+// <SidebarContent>
+//           <SidebarGroup>
+//             <SidebarGroupContent className="px-1.5 md:px-0">
+//               <SidebarMenu>
+//                 {data.navMain.map((item) => (
+//                   <SidebarMenuItem key={item.title}>
+//                     <SidebarMenuButton
+//                       tooltip={{
+//                         children: item.title,
+//                         hidden: false,
+//                       }}
+//                       onClick={() => {
+//                         setActiveItem(item)
+//                         setOpen(true)
+//                       }}
+//                       isActive={activeItem?.title === item.title}
+//                       className="px-2.5"
+//                     >
+//                       <item.icon />
+//                       <span>{item.title}</span>
+//                     </SidebarMenuButton>
+//                   </SidebarMenuItem>
+//                 ))}
+//               </SidebarMenu>
+//             </SidebarGroupContent>
+//           </SidebarGroup>
+//         </SidebarContent>
+//         <SidebarFooter>
+//           <NavUser
+//             user={user}
+//             type="sidebar"
+//             size="icon"
+//             side="right"
+//             align="end"
+//           />
+//           {/* <NavUser/> */}
+//         </SidebarFooter>
+//       </Sidebar>
+//
+//       {/* This is the second sidebar */}
+//       {/* We disable collapsible and let it fill remaining space */}
+//       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
+//         <SidebarHeader className="gap-3.5 border-b p-4">
+//           <div className="flex w-full items-center justify-between">
+//             <div className="text-foreground text-base font-medium">
+//               {activeItem?.title}
+//             </div>
+//             <Label className="flex items-center gap-2 text-sm">
+//               <span>Chưa đọc</span>
+//               <Switch className="shadow-none" />
+//             </Label>
+//           </div>
+//           <SidebarInput
+//             placeholder="Tìm kiếm..."
+//             value={searchQuery}
+//             onChange={(event) => setSearchQuery(event.target.value)}
+//           />
+//         </SidebarHeader>
+//         <SidebarContent>
+//           <SidebarGroup className="p-0">
+//             <SidebarGroupContent className="flex flex-col gap-1 mt-2">
+//               {isLoading && filteredConversations.length === 0 ? (
+//                 <div className="p-4 text-xs text-muted-foreground">
+//                   Đang tải cuộc trò chuyện...
+//                 </div>
+//               ) : error ? (
+//                 <div className="p-4 space-y-2">
+//                   <p className="text-xs text-destructive">{error}</p>
+//                   <Button size="sm" variant="outline" onClick={refresh}>
+//                     Thử lại
+//                   </Button>
+//                 </div>
+//               ) : filteredConversations.length > 0 ? (
+//                 filteredConversations.map((conversation) => {
+//                   const conv = conversation as ConversationWithRelations
+//                   return (
+//                     <ConversationItem
+//                       key={conv.id}
+//                       conversation={conv}
+//                       isActive={conv.id === activeConversationId}
+//                       action={() => {
+//                         router.push(`/message/${conv.id}`)
+//                         setOpen(true)
+//                       }}
+//                       currentUserId={currentUserId}
+//                     />
+//                   )
+//                 })
+//               ) : (
+//                 <div className="p-4 text-xs text-muted-foreground">
+//                   Không có cuộc trò chuyện.
+//                 </div>
+//               )}
+//             </SidebarGroupContent>
+//           </SidebarGroup>
+//         </SidebarContent>
+//       </Sidebar>
 //     </Sidebar>
 //   )
 // }
