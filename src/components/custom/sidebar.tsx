@@ -471,7 +471,8 @@ const sidebarMenuButtonVariants = cva(
     "peer/menu-button flex w-full items-center gap-2.5 overflow-hidden rounded-md p-2.5 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding,color,background-color]",
     "focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50",
     "group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50",
-    "group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-2.5!",
+    "group-data-[collapsible=icon]:size-9!",
+    // "group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-2.5!",
     "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
 
     // ✋ Hover/Active CHỈ khi KHÔNG active
