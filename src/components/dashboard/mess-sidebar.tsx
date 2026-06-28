@@ -4,7 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { ArchiveX, File, Inbox, Send, Trash2 } from "lucide-react"
+import { ArchiveX, File, Inbox, Send, Trash2, Command } from "lucide-react"
 
 import { NavUser } from "@/components/dashboard/nav-user"
 import { Label } from "@/components/ui/label"
@@ -92,8 +92,8 @@ export function MessSidebar({ data, auth, ...props }: MessSidebarProps) {
                       }}
                       onClick={() => {
                         setActiveItem(item)
-                        const mail = data.mails.sort(() => Math.random() - 0.5)
-                        setMails(
+                        const mail = data.navMessage.sort(() => Math.random() - 0.5)
+                        setMessages(
                           mail.slice(
                             0,
                             Math.max(5, Math.floor(Math.random() * 10) + 1)
@@ -114,7 +114,17 @@ export function MessSidebar({ data, auth, ...props }: MessSidebarProps) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-          <NavUser user={data.user} />
+          <NavUser
+            user={data.user}
+            type="sidebar"
+            side="right"
+            size="icon"
+            auth={auth}
+            nav={{
+              main: data.navDropdown,
+              secondary: data.navSignal
+            }}
+          />
         </SidebarFooter>
       </Sidebar>
       {/* This is the second sidebar */}

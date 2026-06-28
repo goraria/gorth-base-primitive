@@ -36,7 +36,7 @@ export interface NavMessage {
   avatar?: string;
   subject?: string;
   teaser?: string;
-  date: Date;
+  date: string;
 }
 
 export interface UserProps {
@@ -73,8 +73,8 @@ export interface MessageProps {
   user: UserProps
   navMain: NavMainItem[]
   // navSecondary: NavMainItem[]
-  // navDropdown: NavMainItem[]
-  // navSignal: NavMainItem[]
+  navDropdown: NavMainItem[]
+  navSignal: NavMainItem[]
   // projects: ProjectProps[]
   // teams?: TeamProps[]
   navMessage: NavMessage[]
