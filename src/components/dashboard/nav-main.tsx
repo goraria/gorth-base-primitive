@@ -165,7 +165,7 @@ export function NavMaster({ items, ...props }: NavCoreProps) {
               key={item.title}
               asChild
               open={isOpen}
-              defaultOpen={item.isActive}
+              // defaultOpen={item.isActive}
               className="group/collapsible"
             >
               <SidebarMenuItem>
