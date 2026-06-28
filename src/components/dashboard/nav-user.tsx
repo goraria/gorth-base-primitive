@@ -136,16 +136,19 @@ export function NavUserDropdown({
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {auth.authenticated ? nav.main.map((item, index) => (
+          {auth.authenticated ? (
             <>
-              <DropdownMenuGroup>
-                <NavDropdownItem
+              {nav.main.map((item, index) => (
+                <DropdownMenuGroup
                   key={index}
-                  icon={item.icon}
-                  title={item.title}
-                  link={item.url}
-                />
-              </DropdownMenuGroup>
+                >
+                  <NavDropdownItem
+                    icon={item.icon}
+                    title={item.title}
+                    link={item.url}
+                  />
+                </DropdownMenuGroup>
+              ))}
               <DropdownMenuSeparator />
               <NavDropdownItem
                 icon={LogOut}
@@ -153,24 +156,23 @@ export function NavUserDropdown({
                 action={auth.logout}
               />
             </>
-          )) : nav.secondary.map((item, index) => (
-            <>
-              <DropdownMenuGroup>
-                <NavDropdownItem
-                  key={index}
-                  icon={item.icon}
-                  title={item.title}
-                  action={(
-                    item.url === "/sign-in" ? (
-                      auth.login
-                    ) : item.url === "/sign-up" ? (
-                      auth.register
-                    ) : () => {}
-                  )}
-                  // link={item.url}
-                />
-              </DropdownMenuGroup>
-            </>
+          ) : nav.secondary.map((item, index) => (
+            <DropdownMenuGroup
+              key={index}
+            >
+              <NavDropdownItem
+                icon={item.icon}
+                title={item.title}
+                action={(
+                  item.url === "/sign-in" ? (
+                    auth.login
+                  ) : item.url === "/sign-up" ? (
+                    auth.register
+                  ) : () => {}
+                )}
+                // link={item.url}
+              />
+            </DropdownMenuGroup>
           ))}
         </>
       ) : (
