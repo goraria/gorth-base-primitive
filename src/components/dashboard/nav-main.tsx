@@ -28,7 +28,7 @@ import {
 } from "@/components/custom/sidebar";
 import { Badge } from "@/components/custom/badge";
 import { cn } from "@/lib/utils";
-import { NavCoreProps, NavMainItem } from "@/lib/interface";
+import { NavCoreProps, NavMainItem, NavSubItem } from "@/lib/interface";
 
 export function NavOrigin({ items, ...props }: NavCoreProps) {
   return (
@@ -109,50 +109,25 @@ export function NavOrigin({ items, ...props }: NavCoreProps) {
 export function NavMaster({ items, ...props }: NavCoreProps) {
   const { setOpen } = useSidebar();
   const pathname = usePathname();
-
-  const isMenuActive = useCallback((item: NavMainItem) => {
-    if (item.url !== "#" && pathname === item.url) return true;
-    if (item.items) {
-      return item.items.some((sub: { url: string }) => sub.url !== "#" && pathname === sub.url);
-    }
-    return false;
-  }, [pathname]);
-  const isSubMenuActive = useCallback((item: { url: string }) => {
-    return item.url !== "#" && pathname === item.url;
-  }, [pathname]);
-
-  const getDefaultOpenIndex = useCallback(() => {
-    return items.findIndex((item: NavMainItem) => isMenuActive(item));
-  }, [items, isMenuActive]);
-  const [openIndex, setOpenIndex] = useState<number | null>(() => {
-    const idx = getDefaultOpenIndex();
-    return idx !== -1 ? idx : null;
-  });
-
-  useEffect(() => {
-    const idx = getDefaultOpenIndex();
-    setOpenIndex(idx !== -1 ? idx : null);
-  }, [getDefaultOpenIndex]);
+  const [openIndex, setOpenIndex] = useState<number | null>();
 
   return (
     <SidebarGroup {...props}>
-      {/*<SidebarGroupLabel className="text-lg font-medium">Platform</SidebarGroupLabel>*/}
       <SidebarMenu>
         {items.map((item: NavMainItem, idx: number) => {
-          const isOpen = openIndex === idx;
-          const hasSubMenu = Array.isArray(item.items) && item.items.length > 0;
-          const Icon = item.icon
+          const isActive = item.url !== "#" && pathname === item.url
+            || !!item.items?.some((subItem) => subItem.url !== "#" && pathname === subItem.url);
 
-          if (!hasSubMenu) {
+          if (!item.items?.length) {
             return (
               <SidebarMenuItem key={`${item.title}-${item.url}-${idx}`}>
                 <SidebarMenuButton
                   tooltip={item.title}
-                  isActive={isMenuActive(item)}
+                  isActive={isActive}
                   asChild
                 >
                   <Link href={item.url} onClick={() => setOpen(true)}>
-                    {Icon && <Icon />}
+                    {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </Link>
                 </SidebarMenuButton>
@@ -162,37 +137,41 @@ export function NavMaster({ items, ...props }: NavCoreProps) {
 
           return (
             <Collapsible
-              key={item.title}
+              key={`${item.title}-${item.url}-${idx}`}
               asChild
-              open={isOpen}
-              // defaultOpen={item.isActive}
+              open={openIndex === undefined ? isActive : openIndex === idx}
+              onOpenChange={(next) => setOpenIndex(next ? idx : null)}
               className="group/collapsible"
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
-                    {Icon && <Icon />}
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    isActive={isActive}
+                  >
+                    {item.icon && <item.icon />}
                     <span>{item.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  {hasSubMenu && (
-                    <SidebarMenuSub>
-                      {item.items?.map((subItem: any) => (
+                  <SidebarMenuSub>
+                    {item.items?.map((subItem) => {
+                      const isSubActive = subItem.url !== "#" && pathname === subItem.url;
+
+                      return (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
                             asChild
-                            isActive={isSubMenuActive(subItem)}
+                            isActive={isSubActive}
                             onClick={() => setOpen(true)}
                           >
                             <Link href={subItem.url}>
-                              {/*<span>{subItem.title}</span>*/}
                               <span className="w-4 h-4 flex justify-center items-center">
                                 <span
                                   className={cn(
                                     "w-2 h-2 rounded-full",
-                                    isSubMenuActive(subItem)
+                                    isSubActive
                                       ? "bg-professional-main"
                                       : "bg-muted-foreground border border-background"
                                   )}
@@ -202,9 +181,9 @@ export function NavMaster({ items, ...props }: NavCoreProps) {
                             </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  )}
+                      )
+                    })}
+                  </SidebarMenuSub>
                 </CollapsibleContent>
               </SidebarMenuItem>
             </Collapsible>
@@ -216,6 +195,110 @@ export function NavMaster({ items, ...props }: NavCoreProps) {
 }
 
 export function NavMain({ items, ...props }: NavCoreProps) {
+  const { setOpen } = useSidebar();
+  const pathname = usePathname();
+  const [openIndex, setOpenIndex] = useState<number | null>();
+
+  return (
+    <SidebarGroup {...props}>
+      <SidebarMenu>
+        {items.map((item: NavMainItem, idx: number) => {
+          const isActive = item.url !== "#" && pathname === item.url
+            || !!item.items?.some((subItem) => subItem.url !== "#" && pathname === subItem.url);
+          const isOpen = openIndex === undefined ? isActive : openIndex === idx;
+
+          if (!item.items?.length) {
+            return (
+              <SidebarMenuItem key={`${item.title}-${item.url}-${idx}`}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  isActive={isActive}
+                  asChild
+                >
+                  <Link href={item.url} onClick={() => setOpen(true)}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          }
+
+          return (
+            <Collapsible
+              key={`${item.title}-${item.url}-${idx}`}
+              asChild
+              open={isOpen}
+              onOpenChange={(next) => setOpenIndex(next ? idx : null)}
+              className="group/collapsible"
+            >
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    isActive={isActive}
+                  >
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: isOpen ? "auto" : 0,
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeInOut",
+                    height: { type: "tween", duration: 0.3 },
+                    opacity: { duration: 0.2, delay: isOpen ? 0.1 : 0 }
+                  }}
+                  style={{
+                    overflow: "hidden"
+                  }}
+                >
+                  <SidebarMenuSub>
+                    {item.items?.map((subItem, sIdx) => {
+                      const isSubActive = subItem.url !== "#" && pathname === subItem.url;
+
+                      return (
+                        <SidebarMenuSubItem key={`${item.title}-${subItem.title}-${subItem.url}-${sIdx}`}>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={isSubActive}
+                            onClick={() => setOpen(true)}
+                          >
+                            <Link href={subItem.url}>
+                              <span className="w-4 h-4 flex justify-center items-center">
+                                <span
+                                  className={cn(
+                                    "w-2 h-2 rounded-full",
+                                    isSubActive
+                                      ? "bg-professional-main"
+                                      : "bg-muted-foreground border border-background"
+                                  )}
+                                />
+                              </span>
+                              <span className="text-sm text-foreground">{subItem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      )
+                    })}
+                  </SidebarMenuSub>
+                </motion.div>
+              </SidebarMenuItem>
+            </Collapsible>
+          );
+        })}
+      </SidebarMenu>
+    </SidebarGroup>
+  );
+}
+
+export function NavMainOld({ items, ...props }: NavCoreProps) {
   const { setOpen } = useSidebar();
   const pathname = usePathname();
 

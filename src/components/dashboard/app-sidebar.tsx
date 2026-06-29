@@ -68,7 +68,7 @@ export function AppSidebar({ data, auth, ...props }: AppSidebarProps) {
       </SidebarHeader>
       {/*<SidebarSeparator className="mx-0" />*/}
       <SidebarContent>
-        <NavOrigin items={data.navMain} />
+        <NavMaster items={data.navMain} />
         <SidebarSeparator className="mx-0 -my-2" />
         <NavSecondary items={data.navSecondary} />
         <SidebarSeparator className="mx-0 -my-2" />
