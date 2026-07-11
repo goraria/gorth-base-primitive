@@ -3,7 +3,7 @@
 import type { ComponentProps, CSSProperties, ReactNode } from "react"
 import { useCallback, useState } from "react"
 import { cn } from "@/lib/utils"
-import { Building, CreditCard, PaintBucket, Settings2 } from "gorth-base-primitive/cores/lucide"
+import { Building, CreditCard, PaintBucket, Settings2 } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group"
 import {
@@ -20,7 +20,7 @@ import { Button } from "@/components/custom/button"
 
 const COLOR_COOKIE_NAME = "color_state"
 const COLOR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const COLOR_SHEET_WIDTH = "328px"
+const COLOR_SHEET_WIDTH = "329px"
 const COLOR_WIDTH_MOBILE = "18rem"
 const COLOR_WIDTH_ICON = "3.25rem"
 const COLOR_KEYBOARD_SHORTCUT = "c"
