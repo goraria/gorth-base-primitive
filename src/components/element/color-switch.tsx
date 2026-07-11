@@ -2,10 +2,18 @@
 // components/theme-color-switch.tsx
 import React, { useState } from "react";
 import { useSelectedLayoutSegment } from "next/navigation";
-// import { useConfig } from "@/hooks/use-config";
 import { Button } from "@/components/custom/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
+// import { useConfig } from "@/hooks/use-config";
+
+export function ColorSwitch(props: {}) {
+  return (
+    <>
+
+    </>
+  )
+}
 
 const themeColors = [
   { name: "Pink", value: "#FF00AA" },

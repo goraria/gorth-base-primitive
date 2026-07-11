@@ -109,7 +109,6 @@ export function NavOrigin({ items, ...props }: NavCoreProps) {
 export function NavMaster({ items, ...props }: NavCoreProps) {
   const { setOpen } = useSidebar();
   const pathname = usePathname();
-  const [openIndex, setOpenIndex] = useState<number | null>();
 
   return (
     <SidebarGroup {...props}>
@@ -139,8 +138,7 @@ export function NavMaster({ items, ...props }: NavCoreProps) {
             <Collapsible
               key={`${item.title}-${item.url}-${idx}`}
               asChild
-              open={openIndex === undefined ? isActive : openIndex === idx}
-              onOpenChange={(next) => setOpenIndex(next ? idx : null)}
+              defaultOpen={isActive}
               className="group/collapsible"
             >
               <SidebarMenuItem>
@@ -404,7 +402,7 @@ export function NavMainOld({ items, ...props }: NavCoreProps) {
                             {/*</Link>*/}
                             <Link
                               href={subItem.url}
-                              // className="flex items-center h-4 "
+                            // className="flex items-center h-4 "
                             >
                               <span className="w-4 h-4 flex justify-center items-center">
                                 <span
@@ -434,6 +432,94 @@ export function NavMainOld({ items, ...props }: NavCoreProps) {
       </SidebarMenu>
     </SidebarGroup>
   );
+}
+
+export function NavMasterOld({ items, ...props }: NavCoreProps) {
+  const { setOpen } = useSidebar();
+  const pathname = usePathname();
+  const [openIndex, setOpenIndex] = useState<number | null>();
+
+  return (
+    <SidebarGroup {...props}>
+      <SidebarMenu>
+        {items.map((item: NavMainItem, idx: number) => {
+          const isActive = item.url !== "#" && pathname === item.url
+            || !!item.items?.some((subItem) => subItem.url !== "#" && pathname === subItem.url);
+
+          if (!item.items?.length) {
+            return (
+              <SidebarMenuItem key={`${item.title}-${item.url}-${idx}`}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  isActive={isActive}
+                  asChild
+                >
+                  <Link href={item.url} onClick={() => setOpen(true)}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          }
+
+          return (
+            <Collapsible
+              key={`${item.title}-${item.url}-${idx}`}
+              asChild
+              open={openIndex === undefined ? isActive : openIndex === idx}
+              onOpenChange={(next) => setOpenIndex(next ? idx : null)}
+              className="group/collapsible"
+            >
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    isActive={isActive}
+                  >
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {item.items?.map((subItem) => {
+                      const isSubActive = subItem.url !== "#" && pathname === subItem.url;
+
+                      return (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={isSubActive}
+                            onClick={() => setOpen(true)}
+                          >
+                            <Link href={subItem.url}>
+                              <span className="w-4 h-4 flex justify-center items-center">
+                                <span
+                                  className={cn(
+                                    "w-2 h-2 rounded-full",
+                                    isSubActive
+                                      ? "bg-professional-main"
+                                      : "bg-muted-foreground border border-background"
+                                  )}
+                                />
+                              </span>
+                              <span className="text-sm text-foreground">{subItem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      )
+                    })}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          )
+        })}
+      </SidebarMenu>
+    </SidebarGroup>
+  )
 }
 
 export function NavSub({ items }: NavCoreProps) {
@@ -569,7 +655,7 @@ export function NavSub({ items }: NavCoreProps) {
                             {/*</Link>*/}
                             <Link
                               href={subItem.url}
-                              // className="flex items-center h-4 "
+                            // className="flex items-center h-4 "
                             >
                               <span className="w-4 h-4 flex justify-center items-center">
                                 <span
