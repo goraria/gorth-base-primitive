@@ -104,7 +104,7 @@ import {
   DataTableSortButtonProps,
   DataTablePaginationProps,
   DataTableFacetedFilterProps
-} from "@/lib/interface"
+} from "@/lib/utils/interface"
 
 export const statuses = [
   {

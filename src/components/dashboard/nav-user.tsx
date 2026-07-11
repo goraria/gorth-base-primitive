@@ -37,7 +37,7 @@ import {
   LucideIcon,
 } from "lucide-react"
 
-import { AppSidebarUserProps, AuthSidebarProps, NavDropdown, NavMainItem, UserProps } from "@/lib/interface";
+import { AppSidebarUserProps, AuthSidebarProps, NavDropdown, NavMainItem, UserProps } from "@/lib/utils/interface";
 
 export function NavUserX({ user }: { user: UserProps }) {
   const { isMobile } = useSidebar()

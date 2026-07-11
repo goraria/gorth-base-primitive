@@ -1,8 +1,9 @@
+"use client";
 // components/theme-color-switch.tsx
-"use client"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import React, { useState } from "react";
+import { useSelectedLayoutSegment } from "next/navigation";
+// import { useConfig } from "@/hooks/use-config";
+import { Button } from "@/components/custom/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
@@ -100,3 +101,23 @@ function hexToHSL(hex: string): string {
 
   return `${h} ${s}% ${lPercent}%`
 }
+
+// export function ThemeSwitcher() {
+//   // const [config] = useConfig();
+//   const segment = useSelectedLayoutSegment();
+//
+//   React.useEffect(() => {
+//     document.body.classList.forEach((className) => {
+//       if (className.match(/^theme.*/)) {
+//         document.body.classList.remove(className);
+//       }
+//     });
+//
+//     const theme = segment === "themes" ? config.theme : null;
+//     if (theme) {
+//       return document.body.classList.add(`theme-${theme}`);
+//     }
+//   }, [segment, config.theme]);
+//
+//   return null;
+// }

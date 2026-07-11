@@ -23,7 +23,7 @@ import {
 } from "@/components/custom/sidebar"
 import { Button } from "@/components/custom/button"
 import { Switch } from "@/components/ui/switch"
-import { MessSidebarProps } from "@/lib/interface"
+import { MessSidebarProps } from "@/lib/utils/interface"
 
 export function MessSidebar({ data, auth, ...props }: MessSidebarProps) {
   // Note: I'm using state to show active item.

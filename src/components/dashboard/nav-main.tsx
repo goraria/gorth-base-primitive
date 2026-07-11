@@ -28,7 +28,7 @@ import {
 } from "@/components/custom/sidebar";
 import { Badge } from "@/components/custom/badge";
 import { cn } from "@/lib/utils";
-import { NavCoreProps, NavMainItem, NavSubItem } from "@/lib/interface";
+import { NavCoreProps, NavMainItem, NavSubItem } from "@/lib/utils/interface";
 
 export function NavOrigin({ items, ...props }: NavCoreProps) {
   return (

@@ -21,7 +21,7 @@ import {
 
 import { LucideIcon } from "lucide-react"
 import { TeamSwitcher } from "@/components/dashboard/team-switcher"
-import { AppSidebarProps } from "@/lib/interface";
+import { AppSidebarProps } from "@/lib/utils/interface";
 
 export function AppSidebar({ data, auth, ...props }: AppSidebarProps) {
   return (
@@ -115,7 +115,7 @@ export function AppSidebar({ data, auth, ...props }: AppSidebarProps) {
 //   SidebarMenuItem,
 //   SidebarRail,
 // } from "@/components/custom/sidebar"
-// import { AppSidebarProps } from "@/lib/interface"
+// import { AppSidebarProps } from "@/lib/utils/interface"
 // import {
 //   BookOpen,
 //   Bot,

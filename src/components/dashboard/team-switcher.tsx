@@ -18,7 +18,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/custom/sidebar"
-import { TeamProps } from "@/lib/interface";
+import { TeamProps } from "@/lib/utils/interface";
 
 export function TeamSwitcher({ teams }: { teams: TeamProps[] }) {
   const { isMobile } = useSidebar()
